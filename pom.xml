@@ -228,28 +228,28 @@
                     <artifactId>spring-boot-maven-plugin</artifactId>
                 </plugin>
                 <!--检验编译的class是否能在jdk1.7上运行 start-->
-                <plugin>
-                    <groupId>org.codehaus.mojo</groupId>
-                    <artifactId>animal-sniffer-maven-plugin</artifactId>
-                    <version>1.14</version>
-                    <configuration>
-                        <signature>
-                            <groupId>org.codehaus.mojo.signature</groupId>
-                            <artifactId>java17</artifactId>
-                            <version>1.0</version>
-                        </signature>
-                        <includeDependencies>true</includeDependencies>
-                    </configuration>
-                    <executions>
-                        <execution>
-                            <id>enforce-java-7</id>
-                            <phase>test</phase>
-                            <goals>
-                                <goal>check</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
+                <!--<plugin>-->
+                    <!--<groupId>org.codehaus.mojo</groupId>-->
+                    <!--<artifactId>animal-sniffer-maven-plugin</artifactId>-->
+                    <!--<version>1.14</version>-->
+                    <!--<configuration>-->
+                        <!--<signature>-->
+                            <!--<groupId>org.codehaus.mojo.signature</groupId>-->
+                            <!--<artifactId>java17</artifactId>-->
+                            <!--<version>1.0</version>-->
+                        <!--</signature>-->
+                        <!--<includeDependencies>true</includeDependencies>-->
+                    <!--</configuration>-->
+                    <!--<executions>-->
+                        <!--<execution>-->
+                            <!--<id>enforce-java-7</id>-->
+                            <!--<phase>test</phase>-->
+                            <!--<goals>-->
+                                <!--<goal>check</goal>-->
+                            <!--</goals>-->
+                        <!--</execution>-->
+                    <!--</executions>-->
+                <!--</plugin>-->
                 <!--检验编译的class是否能在jdk1.7上运行 end-->
             </plugins>
         </pluginManagement>

@@ -16,9 +16,9 @@ public class OntologiesController extends BaseController {
 
     // 若请求头Accept字段包含以下字符串，则返回对应格式，否则默认返回html
     private static final String[] RDF_FORMATS = {
-            "rdf+xml",            // application/rdf+xml
-            "turtle",             // text/turtle
-            "ld+json"             // application/ld+json
+            "application/rdf+xml",            // application/rdf+xml
+            "text/turtle",             // text/turtle
+            "application/ld+json"             // application/ld+json
     };
 
     private final OntologiesService ontologiesService;
@@ -41,6 +41,7 @@ public class OntologiesController extends BaseController {
         for (String format: RDF_FORMATS) {
             if (accept.contains(format)) {
                 try {
+                    response.setHeader("Content-Type", format);
                     PrintWriter writer = response.getWriter();
                     String URI = request.getRequestURL().toString();
                     writer.write(ontologiesService.queryUriFormat(URI, accept));
