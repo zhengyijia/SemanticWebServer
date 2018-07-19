@@ -1,0 +1,37 @@
+spring:
+  mvc:
+    view:
+      prefix: /WEB-INF/views/
+      suffix: .jsp
+    annotation-driven:
+      path-matching:
+        suff
+
+## 数据库配置
+#  datasource:
+#    driver-class-name: oracle.jdbc.driver.OracleDriver
+#    url: jdbc:oracle:thin:@localhost:1521:zhengOrcl
+#    username: lxb
+#    password: lxb123
+#    # 使用druid数据源
+#    type: com.alibaba.druid.pool.DruidDataSource
+
+## JPA配置
+#  jpa:
+#    hibernate:
+#       ddl-auto: update
+#    show-sql: true
+#    database: oracle
+#    generate-ddl: false
+
+## mybatis配置
+#mybatis:
+#  type-aliases-package: com.siat.mapper
+
+logging:
+  level:
+    org:
+      springframework: WARN
+      spring:
+        springboot:
+          dao: INFO
