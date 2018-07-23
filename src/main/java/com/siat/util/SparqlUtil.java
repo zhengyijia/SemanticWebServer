@@ -67,10 +67,28 @@ public class SparqlUtil {
     }
 
     /**
+     * 查询URI信息（注意：如果label定义了多种语言，请使用"queryUri(String URI, String lang)"方法）
+     * @param URI URI
+     * @return 查询结果 SparqlResultBean
+     */
+    public static SparqlResultBean queryUri(String URI) {
+        String SPARQL = "select ?p ?p_label ?o ?o_label\n" +
+                "where {\n" +
+                "    <" + URI + "> ?p ?o.\n" +
+                "    ?p rdfs:label ?p_label.\n" +
+                "    OPTIONAL {\n" +
+                "        ?o rdfs:label ?o_label.\n" +
+                "    }\n" +
+                "}";
+
+        return query(SPARQL);
+    }
+
+    /**
      * 查询URI信息
      * @param URI URI
      * @param lang 对应语言
-     * @return 查询结果（literal返回对应语言项） SparqlResultBean
+     * @return 查询结果（label返回对应语言项） SparqlResultBean
      */
     public static SparqlResultBean queryUri(String URI, String lang) {
         String SPARQL = "select ?p ?p_label ?o ?o_label\n" +
@@ -121,6 +139,20 @@ public class SparqlUtil {
         }
 
         return result;
+    }
+
+    /**
+     * 查询URI对应rdfs:label （注意：如果label定义了多种语言，请使用"queryUriLabel(String URI, String lang)"方法）
+     * @param URI URI
+     * @return 查询结果 SparqlResultBean
+     */
+    public static SparqlResultBean queryUriLabel(String URI) {
+        String SPARQL = "select ?o\n" +
+                "where {\n" +
+                "    <" + URI + "> rdfs:label ?o. \n" +
+                "}";
+
+        return query(SPARQL);
     }
 
     /**

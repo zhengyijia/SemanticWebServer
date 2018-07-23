@@ -46,8 +46,7 @@ public class QueryController extends BaseController {
     public ResponseEntity<SparqlResultBean> queryUriLabel(
             @RequestParam(value = "uri") String URI
     ) {
-        String language = request.getHeader("Accept-Language");
-        SparqlResultBean r = queryService.queryUriLabel(URI, language);
+        SparqlResultBean r = queryService.queryUriLabel(URI);
         return ResponseEntity.ok(r);
     }
 
@@ -60,8 +59,7 @@ public class QueryController extends BaseController {
     public ResponseEntity<SparqlResultBean> queryUri(
             @RequestParam(value = "uri") String URI
     ) {
-        String language = request.getHeader("Accept-Language");
-        SparqlResultBean r = queryService.queryUri(URI, language);
+        SparqlResultBean r = queryService.queryUri(URI);
         return ResponseEntity.ok(r);
     }
 
