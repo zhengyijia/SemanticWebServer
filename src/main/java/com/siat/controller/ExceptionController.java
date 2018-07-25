@@ -1,54 +1,34 @@
 package com.siat.controller;
 
-import com.siat.entity.ResponseBean;
-import org.apache.shiro.ShiroException;
-import org.apache.shiro.authz.UnauthorizedException;
+import com.siat.Exception.TokenValidationException;
+import com.siat.Exception.UnauthorizedException;
+import com.siat.entity.ErrorBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import javax.servlet.http.HttpServletRequest;
-
+// 异常控制器
 @RestControllerAdvice
 public class ExceptionController {
 
-    // 捕捉shiro的异常
-    @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    @ExceptionHandler(ShiroException.class)
-    public ResponseBean handle401(ShiroException e) {
-        return ResponseBean
-                .error()
-                .errorCode(401)
-                .errorMsg(e.getMessage());
-    }
-
-    // 捕捉UnauthorizedException
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(UnauthorizedException.class)
-    public ResponseBean handle401() {
-        return ResponseBean
-                .error()
-                .errorCode(401)
-                .errorMsg("Unauthorized");
+    public ErrorBean unauthorizedException(Throwable ex) {
+        return new ErrorBean(HttpStatus.UNAUTHORIZED.value(), ex.getMessage());
+    }
+
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    @ExceptionHandler(TokenValidationException.class)
+    public ErrorBean tokenValidationException(Throwable ex) {
+        return new ErrorBean(HttpStatus.UNAUTHORIZED.value(), ex.getMessage());
     }
 
     // 捕捉其他所有异常
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseBean globalException(HttpServletRequest request, Throwable ex) {
-        return ResponseBean
-                .error()
-                .errorCode(getStatus(request).value())
-                .errorMsg(ex.getMessage());
-    }
-
-    private HttpStatus getStatus(HttpServletRequest request) {
-        Integer statusCode = (Integer) request.getAttribute("javax.servlet.error.status_code");
-        if (statusCode == null) {
-            return HttpStatus.INTERNAL_SERVER_ERROR;
-        }
-        return HttpStatus.valueOf(statusCode);
+    public ErrorBean globalException(Throwable ex) {
+        return new ErrorBean(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
     }
 
 }

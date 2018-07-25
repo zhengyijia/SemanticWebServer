@@ -1,4 +1,4 @@
-package com.siat.entity;
+package com.siat.entity.QueryEntity;
 
 import java.util.ArrayList;
 import java.util.HashMap;

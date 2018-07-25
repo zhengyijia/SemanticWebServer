@@ -3,7 +3,7 @@ package com.siat.util;
 import com.hp.hpl.jena.query.*;
 import com.hp.hpl.jena.rdf.model.Model;
 import com.hp.hpl.jena.rdf.model.RDFNode;
-import com.siat.entity.SparqlResultBean;
+import com.siat.entity.QueryEntity.SparqlResultBean;
 import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.riot.RDFFormat;
 import virtuoso.jena.driver.VirtGraph;

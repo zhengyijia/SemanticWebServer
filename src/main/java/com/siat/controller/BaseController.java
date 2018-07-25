@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+// 控制器基类，所有控制器继承该基类
 public abstract class BaseController {
 
     HttpServletRequest request;

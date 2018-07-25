@@ -1,22 +1,21 @@
 package com.siat.controller;
 
-import com.siat.entity.SparqlResultBean;
+import com.siat.entity.QueryEntity.SparqlResultBean;
 import com.siat.service.QueryService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @Api(
         tags = "/api/query",
         description = "SPARQL查询相关接口"
 )
-@Controller
+@RestController
 @RequestMapping(path="api/query")
 public class QueryController extends BaseController {
 
@@ -33,7 +32,6 @@ public class QueryController extends BaseController {
             httpMethod = "GET"
     )
     @RequestMapping(path = "query_sparql", method = RequestMethod.GET)
-    @RequiresRoles("admin")
     public ResponseEntity<SparqlResultBean> querySparql(@RequestParam(value = "sparql") String SPARQL) {
         SparqlResultBean r = queryService.querySparql(SPARQL);
         return ResponseEntity.ok(r);

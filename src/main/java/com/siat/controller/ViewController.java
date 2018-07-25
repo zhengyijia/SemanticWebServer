@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class ViewController {
 
     // 跳转到首页
-    @RequestMapping(value = "/", method = RequestMethod.GET)
+    @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
     public String toIndex () {
         return "index";
     }
