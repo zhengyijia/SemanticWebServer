@@ -58,7 +58,7 @@ public class SparqlUtil {
             }
         } catch (Exception e) {
             System.err.println(e.getMessage());
-            resultBean = null;
+            throw e;
         } finally {
             virtGraph.close();
         }
@@ -134,6 +134,7 @@ public class SparqlUtil {
             result = baos.toString();
         } catch (Exception e) {
             System.err.println(e.getMessage());
+            throw e;
         } finally {
             virtGraph.close();
         }

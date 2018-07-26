@@ -39,7 +39,7 @@ public class AuthController extends BaseController {
             String jwt = JwtUtil.generateToken(accountBean.getUsername());
             return new TokenBean(jwt);
         }else {
-            throw new UnauthorizedException("Unauthorized.");
+            throw new UnauthorizedException("用户名或密码错误");
         }
     }
 

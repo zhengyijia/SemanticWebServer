@@ -16,6 +16,11 @@ public class JwtUtil {
     private static final String HEADER_STRING = "Authorization";  // 请求头的token字段
     private static final String USER_NAME = "user_name";  // 将用户名添加到JWT的Playload（荷载信息）中
 
+    /**
+     * 根据用户名生成jwt token
+     * @param username
+     * @return
+     */
     public static String generateToken(String username) {
         HashMap<String, Object> map = new HashMap<>();  // JWT的第二部分Playload（荷载信息）
         map.put(USER_NAME, username);
@@ -27,6 +32,11 @@ public class JwtUtil {
         return TOKEN_PREFIX + jwt; // JWT前面一般都会加Bearer
     }
 
+    /**
+     * 验证token并在header添加用户名
+     * @param request http请求
+     * @return header添加用户名后的http请求
+     */
     public static HttpServletRequest validateTokenAndAddUserIdToHeader(HttpServletRequest request) {
         String token = request.getHeader(HEADER_STRING);
         if (token != null) {
@@ -46,6 +56,7 @@ public class JwtUtil {
         }
     }
 
+    // 用于往请求的header中添加字段
     public static class CustomHttpServletRequest extends HttpServletRequestWrapper {
         private Map<String, String> claims;
 
