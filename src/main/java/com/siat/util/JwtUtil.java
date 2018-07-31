@@ -37,7 +37,7 @@ public class JwtUtil {
      * @param request http请求
      * @return header添加用户名后的http请求
      */
-    public static HttpServletRequest validateTokenAndAddUserIdToHeader(HttpServletRequest request) {
+    public static HttpServletRequest validateTokenAndAddUserIdToHeader(HttpServletRequest request) throws TokenValidationException{
         String token = request.getHeader(HEADER_STRING);
         if (token != null) {
             // parse the token.

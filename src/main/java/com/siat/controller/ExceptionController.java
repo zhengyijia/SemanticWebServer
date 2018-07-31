@@ -2,12 +2,13 @@ package com.siat.controller;
 
 import com.siat.Exception.TokenValidationException;
 import com.siat.Exception.UnauthorizedException;
+import com.siat.entity.ErrorBean;
+import com.siat.util.ErrorCode;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 // 异常控制器
@@ -16,21 +17,33 @@ public class ExceptionController extends BaseController {
 
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(UnauthorizedException.class)
-    public void unauthorizedException(Throwable ex) throws IOException {
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, ex.getMessage());
+    public ErrorBean unauthorizedException(Throwable ex) throws IOException {
+        return new ErrorBean.Builder()
+                .status(HttpStatus.UNAUTHORIZED.value())
+                .errorCode(ErrorCode.AUTH_ERROR_USERNAME_PASSWORD)
+                .errorMsg(ex.getMessage())
+                .build();
     }
 
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(TokenValidationException.class)
-    public void tokenValidationException(Throwable ex) throws IOException {
-        response.sendError(HttpServletResponse.SC_UNAUTHORIZED, ex.getMessage());
+    public ErrorBean tokenValidationException(Throwable ex) throws IOException {
+        return new ErrorBean.Builder()
+                .status(HttpStatus.UNAUTHORIZED.value())
+                .errorCode(ErrorCode.AUTH_ERROR_TOKEN)
+                .errorMsg(ex.getMessage())
+                .build();
     }
 
     // 捕捉其他所有异常
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Exception.class)
-    public void globalException(Throwable ex) throws IOException {
-        response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, ex.getMessage());
+    public ErrorBean globalException(Throwable ex) throws IOException {
+        return new ErrorBean.Builder()
+                .status(HttpStatus.INTERNAL_SERVER_ERROR.value())
+                .errorCode(ErrorCode.UNDEFINDED_ERROR_TYPE)
+                .errorMsg(ex.getMessage())
+                .build();
     }
 
 }
