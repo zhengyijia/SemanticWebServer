@@ -11,6 +11,7 @@
 <head>
     <title>查询</title>
     <script src="${ctx}/static/js/jquery-3.3.1.js"></script>
+    <script src="${ctx}/static/js/jquery.cookie.js"></script>
 </head>
 <style>
     #sparql_text {
@@ -37,20 +38,20 @@
     }
 </style>
 <body>
-    <p>PREFIX rdf:&lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;
-<br>PREFIX owl:&lt;http://www.w3.org/2002/07/owl#&gt;
-<br>PREFIX xml:&lt;http://www.w3.org/XML/1998/namespace&gt;
-<br>PREFIX xsd:&lt;http://www.w3.org/2001/XMLSchema#&gt;
-<br>PREFIX rdfs:&lt;http://www.w3.org/2000/01/rdf-schema#&gt;
-<br>PREFIX ONTO:&lt;http://10.2.1.169:9999/semanticweb/ontologies/&gt;</p>
-    <textarea id="sparql_text"></textarea>
-    <input type="button"  id="sparql_button"  value="查询">
-    <div id="result_box">
-        <span style="display: block">SPARQL results:</span>
-        <table id="query_result">
+<p>PREFIX rdf:&lt;http://www.w3.org/1999/02/22-rdf-syntax-ns#&gt;
+    <br>PREFIX owl:&lt;http://www.w3.org/2002/07/owl#&gt;
+    <br>PREFIX xml:&lt;http://www.w3.org/XML/1998/namespace&gt;
+    <br>PREFIX xsd:&lt;http://www.w3.org/2001/XMLSchema#&gt;
+    <br>PREFIX rdfs:&lt;http://www.w3.org/2000/01/rdf-schema#&gt;
+    <br>PREFIX ONTO:&lt;http://10.2.1.169:9999/semanticweb/ontologies/&gt;</p>
+<textarea id="sparql_text"></textarea>
+<input type="button"  id="sparql_button"  value="查询">
+<div id="result_box">
+    <span style="display: block">SPARQL results:</span>
+    <table id="query_result">
 
-        </table>
-    </div>
+    </table>
+</div>
 </body>
 <script>
     "use strict";
@@ -64,7 +65,25 @@
             "}LIMIT 10"
         );
 
+        // 从cookie获取数据
+        var token = $.cookie('token');
+        if (undefined == token || null == token) {
+            window.location.href="${ctx}/login";
+        }
 
+        $.ajax({
+            url : "${ctx}/api/auth/verify",
+            headers: {
+                "Authorization": token
+            },
+            type : "GET",
+            success : function(result) {
+
+            },
+            error : function() {
+                window.location.href="${ctx}/login";
+            }
+        })
     });
 
     $("#sparql_button").click(function () {

@@ -67,9 +67,17 @@ public class JwtUtil {
         }
 
         @Override
+        public String getHeader(String name) {
+            if (claims != null && claims.containsKey(name)) {
+                return claims.get(name);
+            }
+            return super.getHeader(name);
+        }
+
+        @Override
         public Enumeration<String> getHeaders(String name) {
             if (claims != null && claims.containsKey(name)) {
-                return Collections.enumeration(Arrays.asList(claims.get(name)));
+                return Collections.enumeration(Collections.singletonList(claims.get(name)));
             }
             return super.getHeaders(name);
         }

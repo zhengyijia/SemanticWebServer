@@ -10,6 +10,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping(path="/")
 public class ViewController {
 
+    // 跳转到登录页
+    @RequestMapping(value = "/login", method = RequestMethod.GET)
+    public String toLogin() {
+        return "login";
+    }
+
     // 跳转到首页
     @RequestMapping(value = {"/", "/index"}, method = RequestMethod.GET)
     public String toIndex () {

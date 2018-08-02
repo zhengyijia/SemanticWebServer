@@ -11,17 +11,40 @@
 <head>
     <title></title>
     <script src="${ctx}/static/js/jquery-3.3.1.js"></script>
+    <script src="${ctx}/static/js/jquery.cookie.js"></script>
 </head>
 <body>
-    <div id="page_title"></div>
-    <div id="line">======================================================================</div>
-    <div id="info"></div>
+<div id="page_title"></div>
+<div id="line">======================================================================</div>
+<div id="info"></div>
 </body>
 <script>
     "use strict";
     var uri = window.location.href;
 
     $(function () {
+        // 从cookie获取数据
+        var token = $.cookie('token');
+        if (undefined == token || null == token) {
+            window.location.href="${ctx}/login";
+        }
+
+        $.ajax({
+            url : "${ctx}/api/auth/verify",
+            headers: {
+                "Authorization": token
+            },
+            type : "GET",
+            success : function(result) {
+                getDetailInfo();
+            },
+            error : function() {
+                window.location.href="${ctx}/login";
+            }
+        })
+    });
+
+    function getDetailInfo() {
         $.ajax({
             url: "${ctx}/api/query/query_uri_label",
             data: {
@@ -51,7 +74,7 @@
                 alert("404");
             }
         });
-    });
+    }
 
     function showLabel(result) {
         if (result.results.bindings == false) {

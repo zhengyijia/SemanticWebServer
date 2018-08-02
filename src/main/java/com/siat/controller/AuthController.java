@@ -2,16 +2,14 @@ package com.siat.controller;
 
 import com.siat.Exception.UnauthorizedException;
 import com.siat.entity.AuthEntity.AccountBean;
+import com.siat.entity.AuthEntity.AccountInfoBean;
 import com.siat.entity.AuthEntity.TokenBean;
 import com.siat.service.AuthService;
 import com.siat.util.JwtUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @Api(
         tags = "/api/auth",
@@ -41,6 +39,18 @@ public class AuthController extends BaseController {
         }else {
             throw new UnauthorizedException("用户名或密码错误");
         }
+    }
+
+    @ApiOperation(
+            value = "验证token",
+            notes = "验证token是否有效，返回当前登录用户信息",
+            httpMethod = "GET"
+    )
+    @GetMapping("/verify")
+    public AccountInfoBean verify() {
+        AccountInfoBean accountInfoBean = new AccountInfoBean();
+        accountInfoBean.setUsername(request.getHeader("user_name"));
+        return accountInfoBean;
     }
 
 }
