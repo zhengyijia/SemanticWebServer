@@ -55,6 +55,7 @@
 </body>
 <script>
     "use strict";
+    var token;
 
     $(function () {
         // 设置默认SPARQL
@@ -66,7 +67,7 @@
         );
 
         // 从cookie获取数据
-        var token = $.cookie('token');
+        token = $.cookie('token');
         if (undefined == token || null == token) {
             window.location.href="${ctx}/login";
         }
@@ -95,6 +96,9 @@
 
         $.ajax({
             url : "${ctx}/api/query/query_sparql",
+            headers: {
+                "Authorization": token
+            },
             data : {
                 "sparql" : sparql
             },
