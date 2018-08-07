@@ -1,7 +1,7 @@
 package com.siat.controller;
 
-import com.siat.Exception.TokenValidationException;
-import com.siat.Exception.UnauthorizedException;
+import com.siat.exception.TokenValidationException;
+import com.siat.exception.UnauthorizedException;
 import com.siat.entity.ErrorBean;
 import com.siat.util.ErrorCode;
 import org.springframework.http.HttpStatus;

@@ -127,7 +127,7 @@ public class SparqlResultBean {
          * URI类型节点
          * {
          *     "type": "uri",
-         *     "value": "'             // URI值
+         *     "value": ""             // URI值
          * }
          */
         public static class UriValueBean extends BaseValueBean {

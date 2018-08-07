@@ -63,5 +63,3 @@ buildNumber.properties
 log/
 
 !/src/main/webapp/WEB-INF/lib/*.jar
-
-/src/main/resources/properties/virtuoso_datasource.properties

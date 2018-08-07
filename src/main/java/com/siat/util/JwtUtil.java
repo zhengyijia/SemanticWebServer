@@ -1,6 +1,6 @@
 package com.siat.util;
 
-import com.siat.Exception.TokenValidationException;
+import com.siat.exception.TokenValidationException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 

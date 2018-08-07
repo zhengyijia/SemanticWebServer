@@ -1,6 +1,6 @@
 package com.siat.controller;
 
-import com.siat.Exception.UnauthorizedException;
+import com.siat.exception.UnauthorizedException;
 import com.siat.entity.AuthEntity.AccountBean;
 import com.siat.entity.AuthEntity.AccountInfoBean;
 import com.siat.entity.AuthEntity.TokenBean;

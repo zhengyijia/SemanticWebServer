@@ -1,7 +1,7 @@
-package com.siat.Filter;
+package com.siat.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.siat.Exception.TokenValidationException;
+import com.siat.exception.TokenValidationException;
 import com.siat.entity.ErrorBean;
 import com.siat.util.ErrorCode;
 import com.siat.util.JwtUtil;
@@ -9,6 +9,7 @@ import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.util.AntPathMatcher;
 import org.springframework.util.PathMatcher;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
@@ -60,7 +61,12 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     // 过滤规则
     private boolean isProtectedUrl(HttpServletRequest request) {
+        // 登录页面不校验
         if (pathMatcher.match("/api/auth/login", request.getServletPath()))
+            return false;
+
+        // OPTIONS跨域预检不校验
+        if (RequestMethod.OPTIONS.name().equals(request.getMethod()))
             return false;
 
         return pathMatcher.match("/api/**", request.getServletPath());

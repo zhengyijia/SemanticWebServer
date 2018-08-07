@@ -1,4 +1,4 @@
-package com.siat.Exception;
+package com.siat.exception;
 
 // 用户密码验证失败
 public class UnauthorizedException extends RuntimeException {

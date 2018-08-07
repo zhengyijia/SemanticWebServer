@@ -1,4 +1,4 @@
-package com.siat.Exception;
+package com.siat.exception;
 
 // token验证失败
 public class TokenValidationException extends RuntimeException {
